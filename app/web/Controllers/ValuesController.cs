@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Scheduler;
 
 namespace web.Controllers
 {
@@ -26,8 +27,11 @@ namespace web.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] long value)
         {
+            Console.WriteLine("dmasdmkasd");
+            var scheduler = new FibonacciSheduler();
+            scheduler.SendMessage(value);
         }
 
         // PUT api/values/5
