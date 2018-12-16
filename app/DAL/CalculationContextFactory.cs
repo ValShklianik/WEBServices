@@ -9,17 +9,17 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DAL
 {
-    public class DALContextFactory : IDesignTimeDbContextFactory<CalculationContext>
+    public class CalculationContextFactory : IDesignTimeDbContextFactory<CalculationContext>
     {
-        public DALContextFactory()
+        public CalculationContextFactory()
         {
         }
 
 
-        public CalculationContext CreateDbContext(string[] args)
+        public CalculationContext CreateDbContext(string[] args = null)
         {
             var builder = new DbContextOptionsBuilder<CalculationContext>();
-            builder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres");
+            builder.UseNpgsql("Host=192.168.0.105;Port=5432;Database=postgres;Username=postgres;Password=postgres");
 
             return new CalculationContext(builder.Options);
         }
