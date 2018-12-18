@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Scheduler;
+using DAL;
 
 namespace web.Controllers
 {
@@ -13,37 +14,18 @@ namespace web.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<long>> Get([FromQuery] long value)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
+            var repository = new CalculationRepository();
+            return repository.GetOption(value).Result;
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] long value)
+        public long Post([FromBody] long value)
         {
-            Console.WriteLine("dmasdmkasd");
             var scheduler = new FibonacciSheduler();
-            scheduler.SendMessage(value);
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return scheduler.SendMessage(value);
         }
     }
 }

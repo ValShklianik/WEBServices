@@ -19,7 +19,7 @@ namespace DAL
         public CalculationContext CreateDbContext(string[] args = null)
         {
             var builder = new DbContextOptionsBuilder<CalculationContext>();
-            builder.UseNpgsql("Host=192.168.0.105;Port=5432;Database=postgres;Username=postgres;Password=postgres");
+            builder.UseNpgsql("Host=postgres;Port=5432;Database=postgres;Username=postgres;Password=postgres");
 
             return new CalculationContext(builder.Options);
         }

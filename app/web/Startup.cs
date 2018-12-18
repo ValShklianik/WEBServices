@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Scheduler;
 
 namespace web
 {
@@ -45,8 +44,6 @@ namespace web
             loggerFactory.AddDebug();
             loggerFactory.AddConsole();
 
-            var messageQueue = new RabbitMessageQueue();
-            messageQueue.StartConsuming();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

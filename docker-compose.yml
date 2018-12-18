@@ -5,9 +5,9 @@ services:
     image: rabbitmq:management-alpine
     env_file: .env
     ports:
-      - "127.0.0.1:5671:5671"
-      - "127.0.0.1:5672:5672"
-      - "127.0.0.1:15672:15672"
+      - "5671:5671"
+      - "5672:5672"
+      - "15672:15672"
     logging:
       driver: journald
       options:
@@ -21,11 +21,19 @@ services:
     volumes:
       - ./dockerfiles/pgdata:/var/lib/postgresql/data/pgdata
 
+  consumer:
+    build: ./consumerApp
+    env_file: .env
+    depends_on:
+      - postgres
+      - rabbitmq
+
   web:
     build: ./app
     env_file: .env
     depends_on:
       - postgres
       - rabbitmq
+      - consumer
     ports:
       - "8000:80"

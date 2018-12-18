@@ -3,13 +3,13 @@ WORKDIR /app
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
-COPY scheduler/*.csproj ./scheduler/
+COPY Scheduler/*.csproj ./Scheduler/
 COPY web/*.csproj ./web/
 COPY DAL/*.csproj ./DAL/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY scheduler/. ./scheduler/
+COPY Scheduler/. ./Scheduler/
 COPY web/. ./web/
 COPY DAL/. ./DAL/
 RUN dotnet publish -c Release -o out
