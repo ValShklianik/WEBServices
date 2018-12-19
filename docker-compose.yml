@@ -36,4 +36,4 @@ services:
       - rabbitmq
       - consumer
     ports:
-      - "8000:80"
+      - "80:80"
