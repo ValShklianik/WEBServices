@@ -12,6 +12,7 @@ RUN dotnet restore
 COPY Scheduler/. ./Scheduler/
 COPY web/. ./web/
 COPY DAL/. ./DAL/
+COPY appsettings.json ./appsettings.json
 RUN dotnet publish -c Release -o out
 
 #FROM microsoft/dotnet:2.2-aspnetcore-runtime AS runtime

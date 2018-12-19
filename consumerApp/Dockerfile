@@ -12,7 +12,7 @@ RUN dotnet restore
 COPY Scheduler/. ./Scheduler/
 COPY DAL/. ./DAL/
 COPY Consumer/. ./Consumer/
+COPY appsettings.json ./appsettings.json
 RUN dotnet publish -c Release -o out
-RUN ls
 #FROM microsoft/dotnet:2.2-aspnetcore-runtime AS runtime
 ENTRYPOINT ["dotnet", "Consumer/out/Consumer.dll"]

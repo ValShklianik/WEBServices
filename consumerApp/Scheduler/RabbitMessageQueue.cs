@@ -1,20 +1,30 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Microsoft.Extensions.Configuration;
+
 
 namespace Scheduler
 {
     public class RabbitMessageQueue : IMessageQueue
     {
-        private ConnectionFactory factory = new ConnectionFactory()
+        private ConnectionFactory factory;
+        public RabbitMessageQueue()
         {
-            HostName = "localhost",
-            UserName = "lab",
-            Password = "lab",
-            VirtualHost = "lab_3_4"
-        };
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+            factory = new ConnectionFactory() {
+                UserName = configuration["RabbitMQUser"],
+                VirtualHost = configuration["RabbitMQVirtualHost"],
+                Password = configuration["RabbitMQPassword"],
+                HostName = configuration["RabbitMQHost"]
+            };
+        }
         private string exchangeName = "fibonacci";
         private string queueName = "fibonacci";
         public void SendMessage(string message)
